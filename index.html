@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wishes</title>
+    <style>
+        body, html {
+            height: 100%;
+            margin-top: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-family: Arial, sans-serif;
+        }
+        .brut {
+            width: 500px;
+        }
+        .image-class, .audio-class {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 50vh;
+            box-sizing: border-box;
+            position: relative; /* Position relative for the button */
+        }
+        .audio-class audio {
+            width: 100%;
+            max-width: 500px;
+            opacity: 0; /* Hide the audio elements */
+        }
+        .play-pause-button {
+            position: absolute;
+            bottom: 10px; /* Position the button at the bottom of the container */
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="image-class">
+        <img class="brut" src="trump.jpg" alt="Trump">
+    </div>
+    <div class="audio-class">
+        <audio id="audio1" src="trump.mpeg" autoplay></audio>
+        <audio id="audio2" src="song.mpeg" autoplay></audio>
+        <button class="play-pause-button" onclick="togglePlayPause()">Pause</button>
+    </div>
+
+    <script>
+        // Get references to the audio elements and the button
+        const audio1 = document.getElementById('audio1');
+        const audio2 = document.getElementById('audio2');
+        const button = document.querySelector('.play-pause-button');
+
+        // Function to update the button text based on audio playback state
+        function updateButtonText() {
+            if (audio1.paused && audio2.paused) {
+                button.textContent = 'Play';
+            } else {
+                button.textContent = 'Pause';
+            }
+        }
+
+        // Function to toggle play and pause for both audio elements
+        function togglePlayPause() {
+            if (audio1.paused && audio2.paused) {
+                audio1.play();
+                audio2.play();
+            } else {
+                audio1.pause();
+                audio2.pause();
+            }
+            // Update the button text after toggling play/pause
+            updateButtonText();
+        }
+
+        // Initialize button text based on the initial playback state
+        document.addEventListener('DOMContentLoaded', updateButtonText);
+
+        // Update button text if audio playback changes
+        audio1.addEventListener('play', updateButtonText);
+        audio1.addEventListener('pause', updateButtonText);
+        audio2.addEventListener('play', updateButtonText);
+        audio2.addEventListener('pause', updateButtonText);
+    </script>
+</body>
+</html>
